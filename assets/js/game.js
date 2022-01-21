@@ -1,18 +1,17 @@
-// this created a window prompt for the user to create a name for their player
-// the addition of var playerName creates a useable variable that can be stored
-var playerName = window.prompt("What is your robot's name?");
-    // note the lack of quotation marks around playerName
-    console.log(playerName);
-    console.log("this logs a string, good for leaving yourself a message");
-    console.log("10 + 10"); //this will do math and log 20
-    console.log("Our robot's name is " + playerName); //this will do create a string and attach the variable input to it [also called concatenation]
+var playerName = window.prompt("What is you robot's name?");
+var playerHealth = 100;
+var playerAttack = 10;
 
+// you can also log multiple values at once like this
+console.log(playerName, playerAttack, playerHealth);
 
-// this creates a function named, "fight" [aka the function was declared]
-function fight() {
-    // this creates a alert box to inform the user that the fight has begun
-    window.alert("The fight has begun!");
-}
+var enemyName = "Roberto";
+var enemyHealth = 50;
+var enemyAttack = 12;
 
-// this "calls" the function that we declared
-//fight();
+var fight = function() {
+    window.alert("Welcome to Robot Gladiators!")
+};
+
+// this is where the fight function gets called [activated]
+fight();
