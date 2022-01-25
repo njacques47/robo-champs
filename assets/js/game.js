@@ -9,17 +9,15 @@ var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
 
-// you can also log multiple values at once like this. when you console.log playerName that's when you 
-console.log(playerName, playerAttack, playerHealth);
 
 var enemyNames = ["Gir", "Android 19", "Bender"];
-console.log(enemyNames[3]);
 var enemyHealth = 50;
 var enemyAttack = 12;
 
 
 // this is an example of a function expression where a function is created by assigned it to a variable then later executed. 
-var fight = function () {
+var fight = function (enemyName) {
+    // fight function statements; why is it enemyName & not enemyNames?
     // alert players that they are starting the round
     window.alert("Welcome to Robot Gladiators!");
 
@@ -70,7 +68,8 @@ var fight = function () {
       }
 
     };
-}
+};
 
-// this is where the fight function gets called [executed]
-//fight();
+for(var i = 0; i < enemyNames.length; i++) {
+  fight(enemyNames[i]);
+};
