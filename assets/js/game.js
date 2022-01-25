@@ -1,15 +1,21 @@
+// Game States
+// WIN - player robot has defeated all enemy-robots
+//  * fight all enemy-robots
+//  * defeat each enemy robot
+// LOSE - player robot's health is zero or less
+
 var playerName = window.prompt("What is you robot's name?");
 var playerHealth = 100;
 var playerAttack = 10;
+var playerMoney = 10;
 
 // you can also log multiple values at once like this. when you console.log playerName that's when you 
 console.log(playerName, playerAttack, playerHealth);
 
-var enemyName = "Roberto";
+var enemyNames = ["Gir", "Android 19", "Bender"];
+console.log(enemyNames[3]);
 var enemyHealth = 50;
 var enemyAttack = 12;
-
-var playerMoney = 10;
 
 
 // this is an example of a function expression where a function is created by assigned it to a variable then later executed. 
@@ -55,7 +61,6 @@ var fight = function () {
       // if yes (true), leave fight
       if (confirmSkip) {
         window.alert(playerName + " has chosen to skip the fight! Goodbye.");
-
         // subtract money from playerMoney for skipping
         playerMoney = playerMoney - 2;
       }
@@ -68,4 +73,4 @@ var fight = function () {
 }
 
 // this is where the fight function gets called [executed]
-fight();
+//fight();
