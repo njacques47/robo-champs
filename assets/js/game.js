@@ -6,7 +6,7 @@
 
 var playerName = window.prompt("What is you robot's name?");
 var playerHealth = 100;
-var playerAttack = 10;
+var playerAttack = 17;
 var playerMoney = 10;
 
 
@@ -17,9 +17,9 @@ var enemyAttack = 12;
 
 // this is an example of a function expression where a function is created by assigned it to a variable then later executed. 
 var fight = function (enemyName) {
-    // fight function statements; why is it enemyName & not enemyNames?
+    //repeat and execute this entire block as long as the enemy-robot is alive
+    while(playerHealth > 0 && enemyHealth > 0) {
     // alert players that they are starting the round
-    window.alert("Welcome to Robot Gladiators!");
 
     // fight or skip 
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose");
@@ -35,6 +35,7 @@ var fight = function (enemyName) {
       // check enemy's health
       if (enemyHealth <= 0) {
         window.alert(enemyName + " has died!");
+        break;
       } else {
         window.alert(enemyName + " still has " + enemyHealth + " health left.");
       }
@@ -48,11 +49,12 @@ var fight = function (enemyName) {
       // check player's health
       if (playerHealth <= 0) {
         window.alert(playerName + " has died!");
+        break;
       } else {
         window.alert(playerName + " still has " + playerHealth + " health left.");
       }
-      // if player choses to skip
-    } else if (promptFight === "skip" || promptFight === "SKIP") {
+      // if player choses to skip then stop the loop
+      if (promptFight === "skip" || promptFight === "SKIP") {
       // confirm player wants to skip
       var confirmSkip = window.confirm("Are you sure you'd like to quit?");
 
@@ -60,7 +62,9 @@ var fight = function (enemyName) {
       if (confirmSkip) {
         window.alert(playerName + " has chosen to skip the fight! Goodbye.");
         // subtract money from playerMoney for skipping
-        playerMoney = playerMoney - 2;
+        playerMoney = playerMoney - 10;
+        console.log("playerMoney", playerMoney);
+        break; // this gets positioned at the bottom of the conditional statement to ensure the break (stopping point) occurs at the right time
       }
       // if no (false), ask questiion again by running fight() again
       else {
@@ -68,8 +72,13 @@ var fight = function (enemyName) {
       }
 
     };
+  }
 };
 
 for(var i = 0; i < enemyNames.length; i++) {
-  fight(enemyNames[i]);
+  var pickedEnemyName = enemyNames[i];
+  enemyHealth = 50;
+  //call fight fn w/ enemy-robot
+  fight(pickedEnemyName);
 };
+
