@@ -58,7 +58,6 @@ var fight = function (enemyName) {
 };
 
 var startGame = function () {
-  debugger;
   // reset player stats
   playerHealth = 100;
   playerAttack = 17;
@@ -70,6 +69,14 @@ var startGame = function () {
       var pickedEnemyName = enemyNames[i];
       enemyHealth = 50;
       fight(pickedEnemyName);
+      // if we're not at the last enemy in the array AND we're still alive, we can shop
+      if(playerHealth > 0 && i < enemyNames.length - 1) {
+        // ask if player wants to use the store before next round
+        var storeConfirm = window.confirm("This fight is over, visit the store before the next round?");
+        // if yes, take them to the stop
+        if (storeConfirm) {
+        shop();
+      }
 
     } else {
       endGame();
@@ -79,6 +86,7 @@ var startGame = function () {
 
 // function to end the game
 var endGame = function() {
+  debugger;
   window.alert("The game is over and the results are in!");
   if (playerHealth > 0) {
     window.alert("Great job on surviving the tournament! You now have a score of " + playerMoney + ".");
@@ -93,6 +101,47 @@ var endGame = function() {
     startGame();
   } else {
     window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+  }
+};
+
+var shop = function() {
+  var = shopOptionPrompt = window.prompt(playerName + ", would you like to REFILL your health, UPGRADE your attack, or LEAVE the shop? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a selection.");
+
+  // use switch to carry out action
+  switch (shopOptionPrompt) {
+    case "refill":
+    case "REFILL":
+
+      if (playerMoney >= 7) {
+      window.alert(playerName + "'s health was replenished by 20. Shopkeeper collected 7murr");
+      // increase playerHealth and decrease money
+      playerHealth = playerHealth + 20;
+      playerMoney = playerMoney - 7;
+      } else {
+        window.alert("Aht aht! You don't have enough murr for that!")
+      }
+      break;
+
+    case "upgrade":
+    case "UPGRADE":
+      if (playerMoney >= 7) {
+      window.alert(playerName + "'s attack was increased by 7. Shopkeeper collected 7murr");
+      // increase playerHealth and decrease money
+      playerAttack = playerAttack + 7;
+      playerMoney = playerMoney - 7;
+      } else {
+        window.alert("Aht aht! You don't have enough murr for that!")
+      }
+      break;
+    case "leave":
+    case "LEAVE":
+      
+      window.alert(playerName + " has left the shop");
+      break;
+    default:
+      window.alert("You did not pick a valid option. Try again.");
+      shop();
+      break;
   }
 };
 
