@@ -17,4 +17,4 @@ function add(a,b) {
 };
 ```
 
-## Variables
+## What is object oriented programming?
