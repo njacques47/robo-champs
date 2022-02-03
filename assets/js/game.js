@@ -68,7 +68,7 @@ var playerInfo = {
   },
   refillHealth: function() {
     if (this.money >= 7) {
-      window.alert(playerInfo.name + "'s health was replenished by 20. Shopkeeper collected 7kh")
+      window.alert(playerInfo.name + "'s health was replenished by 20. Shopkeeper collected 7kh.")
       this.health += 20;
       this.money -=7;
     } else {
@@ -77,7 +77,7 @@ var playerInfo = {
   },
   upgradeAttack: function() {
     if (this.money >= 7) {
-      window.alert(playerInfo.name + "'s attack was increased by 7. Shopkeeper collected 7kh");
+      window.alert(playerInfo.name + "'s attack was increased by 7. Shopkeeper collected 7kh.");
       this.attack += 7;
       this.money -= 7;
     } else {
