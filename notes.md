@@ -17,4 +17,26 @@ function add(a,b) {
 };
 ```
 
-## What is object oriented programming?
+## Object Properties
+An object is kind of like a variable in the sense that it stores information about properties (except we can store multiple properties until one object). An example of a property is: 
+```
+var myCar = {
+    propertyName: propertyValue,
+    make: "Toyota",
+    model: "Highlander"
+};
+```
+Methods are functions that can be accessed within an object (aka an object method). 
+```
+var myCar = {
+    propertyName: propertyValue,
+    make: "Toyota",
+    model: "Highlander",
+    mileage: 500000,
+
+    // increases the mileage by 25 each time it is called
+    driveToWork: function(){
+        this.mileage += 25;
+    }
+};
+```
