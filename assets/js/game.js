@@ -13,6 +13,14 @@ var enemyNames = ["Gir", "Android 19", "Bender"];
 var enemyHealth = 50;
 var enemyAttack = 12;
 
+var randomNumber = function(min, max) {
+  // pick a random number between 1 - 60
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+  // when used in a fn it will return the value of a varible  
+  return value;
+};
+
 
 var fight = function (enemyName) {
   while (playerHealth > 0 && enemyHealth > 0) {
@@ -31,7 +39,8 @@ var fight = function (enemyName) {
       }
     }
 
-    enemyHealth = enemyHealth - playerAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack)
+    enemyHealth = Math.max(0, enemyHealth - damage);
     console.log(playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining.");
 
     if (enemyHealth <= 0) {
@@ -44,7 +53,8 @@ var fight = function (enemyName) {
       window.alert(enemyName + " still has " + enemyHealth + " health left.");
     }
 
-    playerHealth = playerHealth - enemyAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack)
+    playerHealth = Math.max(0, playerHealth - damage);
     console.log(enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining.");
 
     if (playerHealth <= 0) {
@@ -62,31 +72,36 @@ var startGame = function () {
   playerHealth = 100;
   playerAttack = 17;
   playerMoney = 10;
+
   for (var i = 0; i < enemyNames.length; i++) {
     if (playerHealth > 0) {
       window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
 
       var pickedEnemyName = enemyNames[i];
-      enemyHealth = 50;
+
+      enemyHealth = randomNumber(40, 60);
+
       fight(pickedEnemyName);
+
       // if we're not at the last enemy in the array AND we're still alive, we can shop
-      if(playerHealth > 0 && i < enemyNames.length - 1) {
+      if (playerHealth > 0 && i < enemyNames.length - 1) {
         // ask if player wants to use the store before next round
         var storeConfirm = window.confirm("This fight is over, visit the store before the next round?");
         // if yes, take them to the stop
         if (storeConfirm) {
-        shop();
-      }
-
-    } else {
-      endGame();
-    }
+          shop();
+        };
+      };
+    } else { // if player is not alive, break out of the loop and let the endGame run
+      window.alert("You have lost the battle! Game over!");
+      break;
+    };
   };
+  endGame();
 };
 
 // function to end the game
-var endGame = function() {
-  debugger;
+var endGame = function () {
   window.alert("The game is over and the results are in!");
   if (playerHealth > 0) {
     window.alert("Great job on surviving the tournament! You now have a score of " + playerMoney + ".");
@@ -104,8 +119,8 @@ var endGame = function() {
   }
 };
 
-var shop = function() {
-  var = shopOptionPrompt = window.prompt(playerName + ", would you like to REFILL your health, UPGRADE your attack, or LEAVE the shop? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a selection.");
+var shop = function () {
+  var shopOptionPrompt = window.prompt(playerName + ", would you like to REFILL your health, UPGRADE your attack, or LEAVE the shop? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a selection.");
 
   // use switch to carry out action
   switch (shopOptionPrompt) {
@@ -113,29 +128,29 @@ var shop = function() {
     case "REFILL":
 
       if (playerMoney >= 7) {
-      window.alert(playerName + "'s health was replenished by 20. Shopkeeper collected 7murr");
-      // increase playerHealth and decrease money
-      playerHealth = playerHealth + 20;
-      playerMoney = playerMoney - 7;
+        window.alert(playerName + "'s health was replenished by 20. Shopkeeper collected 7kh");
+        // increase playerHealth and decrease money
+        playerHealth = playerHealth + 20;
+        playerMoney = Math.max(0, playerMoney - 7);
       } else {
-        window.alert("Aht aht! You don't have enough murr for that!")
+        window.alert("Aht aht! You don't have enough khor for that!")
       }
       break;
 
     case "upgrade":
     case "UPGRADE":
       if (playerMoney >= 7) {
-      window.alert(playerName + "'s attack was increased by 7. Shopkeeper collected 7murr");
-      // increase playerHealth and decrease money
-      playerAttack = playerAttack + 7;
-      playerMoney = playerMoney - 7;
+        window.alert(playerName + "'s attack was increased by 7. Shopkeeper collected 7bn");
+        // increase playerHealth and decrease money
+        playerAttack = playerAttack + 7;
+        playerMoney = Math.max(0, playerMoney - 7);
       } else {
-        window.alert("Aht aht! You don't have enough murr for that!")
+        window.alert("Aht aht! You don't have enough barnacles for that!")
       }
       break;
     case "leave":
     case "LEAVE":
-      
+
       window.alert(playerName + " has left the shop");
       break;
     default:
