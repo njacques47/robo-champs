@@ -1,7 +1,6 @@
-// create a startGame fn that tells the user the state that the game is in
-// create a endGame fn that provides final stats on game *** this is for the challenge ***
-// create a shop fn between rounds
-// 
+// left off at 3.5.4
+
+
 var randomNumber = function(min, max) {
   // pick a random number between 1 - 60
   var value = Math.floor(Math.random() * (max - min + 1) + min);
@@ -56,8 +55,19 @@ var fight = function (enemy) {
   };
 };
 
+var getPlayerName = function() {
+  var name = "";
+  while (name === "" || name === null) {
+    // reads that anytime the name is entered as an empty string or null, the loop will continue to prompt for a valid name
+    name = prompt("What is your robot's name?");
+  }
+
+  console.log("Your robot's name is " + name);
+  return name;
+}
+
 var playerInfo = {
-  name: window.prompt("What is your robot's name?"),
+  name: getPlayerName(),
   health: 100,
   attack: 17,
   money: 10,
@@ -86,6 +96,7 @@ var playerInfo = {
   }
 };
 
+
 var enemyInfo = [
   {
     name: "Rui",
@@ -108,6 +119,7 @@ var startGame = function () {
   for (var i = 0; i < enemyInfo.length; i++) {
     if (playerInfo.health > 0) {
       window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+      debugger;
 
       var pickedEnemyObj = enemyInfo[i];
 
