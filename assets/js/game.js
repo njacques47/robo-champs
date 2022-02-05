@@ -1,7 +1,7 @@
 // left off at 3.5.4
 
 
-var randomNumber = function(min, max) {
+var randomNumber = function (min, max) {
   // pick a random number between 1 - 60
   var value = Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -9,7 +9,7 @@ var randomNumber = function(min, max) {
   return value;
 };
 
-var fightOrSkip = function() {
+var fightOrSkip = function () {
   // ask player if they'd like to fight or skip using fn
   var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle?");
 
@@ -31,48 +31,64 @@ var fightOrSkip = function() {
 
       // return true if player wants to leave the match
       return true;
-      return false; 
+      return false;
     }
   }
 }
 
 var fight = function (enemy) {
-  console.log(enemy);
+  // track who goes first
+  var isPlayerTurn = true;
+  // randomly change turn
+  if (Math.random() > 0.5) {
+    isPlayerTurn = false;
+  }
+  
+  //console.log(enemy);
   while (playerInfo.health > 0 && enemy.health > 0) {
-    if (fightOrSkip()) {
-      // if true, leave fight by breaking the loop
-      break;
-    }; 
-    var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+    if (isPlayerTurn) {
+      // ask if they wanna fight or skip
+      if (fightOrSkip()) {
+        // if true, leave fight by breaking the loop
+        break;
+      }
+      var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
 
-    enemy.health = Math.max(0, enemy.health - damage);
-    console.log(playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining.");
+      // remove enemy's health
+      enemy.health = Math.max(0, enemy.health - damage);
+      console.log(playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining.");
 
-    if (enemy.health <= 0) {
-      window.alert(enemy.name + " has died!");
+      if (enemy.health <= 0) {
+        window.alert(enemy.name + " has died!");
+        // award player money for the win
+        playerInfo.money = playerInfo.money + 20;
 
-      playerInfo.money = playerInfo.money + 20;
+        break;
 
-      break;
+      } else {
+        window.alert(enemy.name + " still has " + enemy.health + " health left.");
+      }
+
     } else {
-      window.alert(enemy.name + " still has " + enemy.health + " health left.");
+
+      var damage = randomNumber(enemy.attack - 3, enemy.attack)
+      playerInfo.health = Math.max(0, playerInfo.health - damage);
+      console.log(enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining.");
+
+      if (playerInfo.health <= 0) {
+        window.alert(playerInfo.name + " has died!");
+
+        break;
+      } else {
+        window.alert(playerInfo.name + " still has " + playerInfo.health + " health remaining.")
+      }
     }
-
-    var damage = randomNumber(enemy.attack - 3, enemy.attack)
-    playerInfo.health = Math.max(0, playerInfo.health - damage);
-    console.log(enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + playerInfo.health + " health remaining.");
-
-    if (playerInfo.health <= 0) {
-      window.alert(playerInfo.name + " has died!");
-
-      break;
-    } else {
-      window.alert(playerInfo.name + " still has " + playerInfo.health + " health remaining.")
-    };
-  };
+    // switch turn order for the next round
+    isPlayerTurn = !isPlayerTurn;
+  }
 };
 
-var getPlayerName = function() {
+var getPlayerName = function () {
   var name = "";
   while (name === "" || name === null) {
     // reads that anytime the name is entered as an empty string or null, the loop will continue to prompt for a valid name
@@ -88,21 +104,21 @@ var playerInfo = {
   health: 100,
   attack: 17,
   money: 10,
-  reset: function() {
+  reset: function () {
     this.health = 100;
     this.money = 10;
     this.attack = 17;
   },
-  refillHealth: function() {
+  refillHealth: function () {
     if (this.money >= 7) {
       window.alert(playerInfo.name + "'s health was replenished by 20. Shopkeeper collected 7kh.")
       this.health += 20;
-      this.money -=7;
+      this.money -= 7;
     } else {
       window.alert("Aht aht! You don't have enough khorr for that!");
     }
   },
-  upgradeAttack: function() {
+  upgradeAttack: function () {
     if (this.money >= 7) {
       window.alert(playerInfo.name + "'s attack was increased by 7. Shopkeeper collected 7kh.");
       this.attack += 7;
@@ -114,8 +130,7 @@ var playerInfo = {
 };
 
 
-var enemyInfo = [
-  {
+var enemyInfo = [{
     name: "Rui",
     attack: randomNumber(10, 14)
   },
@@ -192,7 +207,7 @@ var shop = function () {
     case 2:
       playerInfo.upgradeAttack();
       break;
-      
+
     case 3:
       window.alert(playerInfo.name + " has left the shop");
       break;
