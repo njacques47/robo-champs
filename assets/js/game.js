@@ -1,4 +1,3 @@
-// left off at 3.5.4
 
 
 var randomNumber = function (min, max) {
@@ -178,6 +177,11 @@ var startGame = function () {
 // function to end the game
 var endGame = function () {
   window.alert("The game is over and the results are in!");
+
+  // trying to store the player's high scores
+  var highscore = localStorage.setItem(playerInfo.name, playerInfo.money)
+
+
   if (playerInfo.health > 0) {
     window.alert("Great job on surviving the tournament! You now have a score of " + playerInfo.money + ".");
   } else {
