@@ -178,8 +178,21 @@ var startGame = function () {
 var endGame = function () {
   window.alert("The game is over and the results are in!");
 
-  // trying to store the player's high scores
-  var highscore = localStorage.setItem(playerInfo.name, playerInfo.money)
+  // check local storage for high score, if not present, use 0
+  var highScore = localStorage.getItem("highscore");
+  if (highScore === null){
+    highScore = 0;
+  }
+
+  // if player has more money than the high score, player has new highest score
+  if (playerInfo.money > highScore){
+    localStorage.setItem("highscore", playerInfo.money);
+    localStorage.setItem("name", playerInfo.name);
+    alert(playerInfo.name + " now has the high score of " + playerInfo.money + "!");
+  } else {
+    // what happens when the player did not get a new high score
+    alert(playerInfo.name + " did not beat the highest score of " + highScore + ". Better luck next time!");
+  }
 
 
   if (playerInfo.health > 0) {
